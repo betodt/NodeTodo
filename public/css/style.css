@@ -1,0 +1,17 @@
+body div.container {
+	height: 100%;
+	background-color: #d9cbb3; 
+}
+
+body div.container md-whiteframe {
+	width: 500px;
+	background-color: #fff; 
+}
+
+body div.container md-whiteframe md-content{
+	width: 500px;
+}
+
+body div.container md-whiteframe md-content{
+	background-color: white; 
+}
