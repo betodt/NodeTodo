@@ -2,10 +2,10 @@ angular.module('NodeTodo')
 
 .controller('MainController', ['$resource', function($resource){
 
-	this.todoAPI = $resource('/api/:where/:which', { where: 'todo'});
+	// Place resource in a service/factory
 
-	this.todos = this.todoAPI.query({ where: 'todos', which: 'test' });
+	this.todoAPI = $resource('/api/todos/:id');
 
-	
+	this.todos = this.todoAPI.query();
 
 }]);
