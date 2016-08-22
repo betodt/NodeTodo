@@ -1,11 +1,28 @@
 angular.module('NodeTodo')
 
-.controller('MainController', ['$resource', function($resource){
+.controller('MainController', ['$resource', 'Todo', function($resource, Todo){
 
-	// Place resource in a service/factory
+	this.todos = Todo.query();
 
-	this.todoAPI = $resource('/api/todos/:id');
+	this.addTodo = function(todo) {
 
-	this.todos = this.todoAPI.query();
+		if(todo) {
+
+			Todo.save({
+				
+				todo: todo,
+				isDone: true,
+				hasAttachment: true
+			
+			}, function() {
+
+				this.todos = Todo.query();
+				console.log(this.todos);
+			
+			});
+
+		}
+
+	};
 
 }]);
