@@ -7,7 +7,9 @@ angular.module('NodeTodo')
 		replace: true,
 		scope: {
 			todos: '=',
-			submit: '&'
+			submit: '&',
+			check: '&',
+			attach: '&'
 		}
 	};
 });

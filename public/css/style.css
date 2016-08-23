@@ -15,3 +15,7 @@ body div.container md-whiteframe md-content{
 body div.container md-whiteframe md-content{
 	background-color: white; 
 }
+
+button.md-raised.md-primary.md-button.md-ink-ripple {
+	color: rgba(255,255,255,0.87);
+}

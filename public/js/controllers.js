@@ -1,6 +1,6 @@
 angular.module('NodeTodo')
 
-.controller('MainController', ['$resource', 'Todo', function($resource, Todo){
+.controller('MainController', ['$scope', '$resource', 'Todo', function($scope, $resource, Todo){
 
 	this.todos = Todo.query();
 
@@ -8,20 +8,33 @@ angular.module('NodeTodo')
 
 		if(todo) {
 
-			Todo.save({
+			var self = this;
+
+			new Todo({
 				
 				todo: todo,
-				isDone: true,
-				hasAttachment: true
+				isDone: false,
+				hasAttachment: false
 			
-			}, function() {
+			}).$save(function(newTodo) {
 
-				this.todos = Todo.query();
-				console.log(this.todos);
+				self.todos = Todo.query();
 			
 			});
 
 		}
+
+	};
+
+	this.checkTask = function(todo) {
+
+		Todo.update({ id: todo._id }, todo);
+
+	};
+
+	this.addAttachment = function() {
+
+		console.log('attached');
 
 	};
 

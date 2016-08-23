@@ -1,8 +1,12 @@
-<div class="container" layout="column" layout-align="start center">
-	<div flex="25"></div>
+<div class="container" layout="column" layout-align="center center">
 	<md-whiteframe class="md-whiteframe-14dp" flex="50" layout="column" layout-align="start center">
 		<md-toolbar layout layout-align="center center">
+			<div flex="5"></div>
 			<h2>To-Do List</h2>
+			<div flex></div>
+			<!-- <md-button class="md-icon-button">
+				<md-icon>more_vert</md-icon>
+			</md-button> -->
 		</md-toolbar>
 		<md-toolbar class="md-accent md-hue-1 md-padding" layout="column">
 			<form ng-submit="submit({ desc: newTodo }); newTodo = '';" layout="row" flex="5">
@@ -15,10 +19,12 @@
 		</md-toolbar>
 		<md-content layout="column" class="md-padding">
 		    <md-list flex>
-		    	<md-list-item class="md-1-line" ng-repeat="todo in todos track by todo._id" ng-click="todo.isDone = !todo.isDone">
-		    		<md-checkbox ng-model="todo.isDone"></md-checkbox>
+		    	<md-list-item class="md-1-line" ng-repeat="todo in todos track by todo._id" ng-click="todo.isDone = !todo.isDone; check({ todo: todo });">
+		    		<md-checkbox ng-model="todo.isDone" ng-change="check({ todo: todo })"></md-checkbox>
 		    		<p>{{ todo.todo }}</p>
-		    		<md-icon>attachment</md-icon>
+		    		<!-- <md-button class="md-icon-button" ng-disabled="true" ng-click="attach()">
+		    			<md-icon>attachment</md-icon>
+		    		</md-button> -->
 		    	</md-list-item>
 		    </md-list>
 		</md-content>

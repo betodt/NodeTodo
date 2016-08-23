@@ -3,7 +3,7 @@ var configValues = require('./config');
 module.exports = {
     
     getDbConnectionString: function() {
-        return 'mongodb://localhost:27017/nodetodosample';
+        return `mongodb://${ configValues.uname }:${ configValues.pwd }@ds013456.mlab.com:13456/nodetodo`;
     }
     
 }
