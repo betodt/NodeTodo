@@ -19,13 +19,13 @@ button.md-raised.md-primary.md-button.md-ink-ripple {
 	color: rgba(255,255,255,0.87);
 }
 
-@media screen and (min-width: 600px) {
+@media (min-width: 600px) {
     body div.container md-whiteframe {
     	width: 500px;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 599px) {
     body div.container md-whiteframe {
     	width: 100%;
     }
