@@ -2,8 +2,8 @@ angular.module('NodeTodo', ['ngMaterial', 'ngResource'])
 
 .config(['$mdThemingProvider', function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
-		.primaryPalette('brown')
+		.primaryPalette('indigo')
 		.accentPalette('grey')
 		.warnPalette('amber')
-		.backgroundPalette('blue-grey');
+		.backgroundPalette('grey');
 }]);

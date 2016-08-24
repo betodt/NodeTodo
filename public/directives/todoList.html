@@ -16,10 +16,16 @@
 				</md-input-container>
 				<md-button class="md-raised md-primary" type="submit">Submit</md-button>
 			</form>
+			<md-radio-group layout="row" ng-model="q.isDone">
+				<div flex="5"></div>
+				<md-radio-button ng-value="">All</md-radio-button>
+				<md-radio-button ng-value="true">Done</md-radio-button>
+				<md-radio-button ng-value="!true">Not Done</md-radio-button>
+			</md-radio-group>
 		</md-toolbar>
 		<md-content layout="column" class="md-padding">
 		    <md-list flex>
-		    	<md-list-item class="md-1-line" ng-repeat="todo in todos track by todo._id" ng-click="todo.isDone = !todo.isDone; check({ todo: todo });">
+		    	<md-list-item ng-class="{ complete: todo.isDone }" class="md-1-line" ng-repeat="todo in todos | filter:q track by $index" ng-click="todo.isDone = !todo.isDone; check({ todo: todo });">
 		    		<md-checkbox ng-model="todo.isDone" ng-change="check({ todo: todo })"></md-checkbox>
 		    		<p>{{ todo.todo }}</p>
 		    		<!-- <md-button class="md-icon-button" ng-disabled="true" ng-click="attach()">

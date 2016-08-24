@@ -1,6 +1,11 @@
+.complete {
+	text-decoration: line-through;
+	color: grey;
+}
+
 body div.container {
 	height: 100%;
-	background-color: #d9cbb3; 
+	background-color: #d3d0cc; 
 }
 
 body div.container md-whiteframe {

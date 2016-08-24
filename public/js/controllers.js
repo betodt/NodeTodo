@@ -2,6 +2,8 @@ angular.module('NodeTodo')
 
 .controller('MainController', ['$scope', '$resource', 'Todo', function($scope, $resource, Todo){
 
+	this.TRUE = true;
+	
 	this.todos = Todo.query();
 
 	this.addTodo = function(todo) {

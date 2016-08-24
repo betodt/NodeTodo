@@ -6,6 +6,7 @@ angular.module('NodeTodo')
 		templateUrl: '/assets/directives/todoList.html',
 		replace: true,
 		scope: {
+			true: '=',
 			todos: '=',
 			submit: '&',
 			check: '&',
