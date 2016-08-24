@@ -4,14 +4,29 @@ body div.container {
 }
 
 body div.container md-whiteframe {
-	width: 500px;
 	background-color: #fff; 
 }
 
 body div.container md-whiteframe md-content{
-	width: 500px;
+	width: 100%;
 }
 
 body div.container md-whiteframe md-content{
 	background-color: white; 
+}
+
+button.md-raised.md-primary.md-button.md-ink-ripple {
+	color: rgba(255,255,255,0.87);
+}
+
+@media (min-width: 600px) {
+    body div.container md-whiteframe {
+    	width: 500px;
+    }
+}
+
+@media (max-width: 599px) {
+    body div.container md-whiteframe {
+    	width: 100%;
+    }
 }

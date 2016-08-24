@@ -32,4 +32,15 @@ module.exports = function(app) {
 
  }); 
 
+
+  app.delete('/api/deleteTodos', function(req, res) {
+
+    Todos.remove({}, function(err) {
+        if(err) throw err;
+
+        res.send('Success');
+    });
+
+  });
+
 }

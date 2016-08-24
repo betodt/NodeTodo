@@ -1,6 +1,7 @@
 <html ng-app="NodeTodo">
 	<head>
 		<title>Node Todo: Angular Edition</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Angular Material Stylesheet -->
 		<link rel="stylesheet" type="text/css" href="/deps/angular-material/angular-material.min.css">
@@ -20,7 +21,7 @@
 	</head>
 	<body ng-controller="MainController as vm">
 
-		<todo-list todos="vm.todos"></todo-list>
+		<todo-list todos="vm.todos" submit="vm.addTodo(desc)" check="vm.checkTask(todo)" attach="vm.addAttachment()"></todo-list>
 
 		<!-- Load app -->
 		<script src="/assets/js/app.js"></script>
