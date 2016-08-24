@@ -1,0 +1,24 @@
+<md-dialog aria-label="sign up">
+	<form ng-submit="dialog.signUp()">
+		<md-dialog-content class="md-padding" layout="column">
+			<h2>Sign Up</h2>
+			<md-input-container>
+				<label>Username</label>
+				<input type="text" ng-model="dialog.uname">
+			</md-input-container>
+			<md-input-container>
+				<label>Password</label>
+				<input type="password" ng-model="dialog.pwd">
+			</md-input-container>
+			<md-input-container>
+				<label>Confirm Password</label>
+				<input type="password" ng-model="dialog.confirmPwd">
+			</md-input-container>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button ng-click="dialog.cancel()">Cancel</md-button>
+			<md-button type="submit">Sign Up</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>
