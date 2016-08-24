@@ -8,6 +8,10 @@ body div.container {
 	background-color: #d3d0cc; 
 }
 
+body div.container md-whiteframe md-toolbar md-radio-group {
+	margin-top: 10px; 
+}
+
 body div.container md-whiteframe {
 	background-color: #fff; 
 }
