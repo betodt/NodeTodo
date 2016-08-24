@@ -6,6 +6,6 @@ angular.module('NodeTodo')
 
 	this.todos = this.todoAPI.query({ where: 'todos', which: 'test' });
 
-	
+
 
 }]);
