@@ -6,10 +6,13 @@ angular.module('NodeTodo')
 		templateUrl: '/assets/directives/todoList.html',
 		replace: true,
 		scope: {
+			user: '=',
 			todos: '=',
 			submit: '&',
 			check: '&',
-			attach: '&'
+			attach: '&',
+			signIn: '&',
+			om: '&'
 		}
 	};
 });

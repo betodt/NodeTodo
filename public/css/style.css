@@ -1,3 +1,6 @@
+/*
+	Todo List
+*/
 body div.container {
 	height: 100%;
 	background-color: #d9cbb3; 
@@ -9,16 +12,16 @@ body div.container md-whiteframe {
 
 body div.container md-whiteframe md-content{
 	width: 100%;
-}
-
-body div.container md-whiteframe md-content{
-	background-color: white; 
+	background-color: #fff; 
 }
 
 button.md-raised.md-primary.md-button.md-ink-ripple {
 	color: rgba(255,255,255,0.87);
 }
 
+/*
+	Media Queries
+*/
 @media (min-width: 600px) {
     body div.container md-whiteframe {
     	width: 500px;

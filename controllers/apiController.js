@@ -8,7 +8,7 @@ module.exports = function(app) {
     
     app.get('/api/todos', function(req, res) {
 
-        Todos.find(/*{ username: req.params.uname },*/ function(err, todos) {
+        Todos.find({ userId : req.query.userId }, function(err, todos) {
             if (err) throw err;
             
             res.send(todos);
@@ -17,8 +17,6 @@ module.exports = function(app) {
     });
     
     app.get('/api/todos/:id', function(req, res) {
-
-        console.log(req.params.id);
 
         Todos.findById({ _id: req.params.id }, function(err, todo) {
             if (err) throw err;
@@ -31,11 +29,12 @@ module.exports = function(app) {
     app.post('/api/todos', function(req, res) {
 
         var newTodo = Todos({
-            username: 'test',
+            userId: req.body.userId,
             todo: req.body.todo,
             isDone: req.body.isDone,
             hasAttachment: req.body.hasAttachment
         });
+
         newTodo.save(function(err) {
             if (err) throw err;
             res.send('Success');
@@ -45,11 +44,18 @@ module.exports = function(app) {
 
     app.put('/api/todos/:id', function(req, res) {
       if (req.params.id) {
-          Todos.findByIdAndUpdate(req.params.id, { todo: req.body.todo, isDone: req.body.isDone, hasAttachment: req.body.hasAttachment }, function(err, todo) {
+          Todos.findByIdAndUpdate(req.params.id, { 
+            
+            todo: req.body.todo, 
+            isDone: req.body.isDone, 
+            hasAttachment: req.body.hasAttachment 
+        
+        }, 
+        function(err, todo) {
               if (err) throw err;
               
               res.send('Success');
-          });
+        });
       }
   });
     

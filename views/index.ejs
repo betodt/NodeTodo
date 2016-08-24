@@ -18,10 +18,11 @@
 		<script src="/deps/angular-animate/angular-animate.min.js"></script>
 		<script src="/deps/angular-material/angular-material.min.js"></script>
 		<script src="/deps/angular-resource/angular-resource.min.js"></script>
+		<script src="/deps/angular-route/angular-route.min.js"></script>
 	</head>
 	<body ng-controller="MainController as vm">
 
-		<todo-list todos="vm.todos" submit="vm.addTodo(desc)" check="vm.checkTask(todo)" attach="vm.addAttachment()"></todo-list>
+		<div ng-view></div>
 
 		<!-- Load app -->
 		<script src="/assets/js/app.js"></script>
@@ -31,5 +32,6 @@
 		<script src="/assets/js/services.js"></script>
 		<!-- Load directives -->
 		<script src="/assets/js/directives.js"></script>
+		
 	</body>
 </html>

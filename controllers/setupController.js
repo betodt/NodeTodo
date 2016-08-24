@@ -7,19 +7,19 @@ module.exports = function(app) {
    // seed database
    var starterTodos = [
      {
-       username: 'test',
+       userId: '57bcded6d3c3b996172f3d5a',
        todo: 'Buy milk',
        isDone: false,
        hasAttachment: false
      },
      {
-       username: 'test',
+       userId: '57bcded6d3c3b996172f3d5a',
        todo: 'Feed dog',
        isDone: false,
        hasAttachment: false
      },
      {
-       username: 'test',
+       userId: '57bcded6d3c3b996172f3d5a',
        todo: 'Learn Node',
        isDone: false,
        hasAttachment: false
@@ -27,12 +27,15 @@ module.exports = function(app) {
    ];
 
    Todos.create(starterTodos, function(err, results) {
+       if(err) throw err;
+
        res.send(results);
    }); 
 
  }); 
 
-
+  /*
+  // DEBUG ONLY
   app.delete('/api/deleteTodos', function(req, res) {
 
     Todos.remove({}, function(err) {
@@ -42,5 +45,6 @@ module.exports = function(app) {
     });
 
   });
+  */
 
 }
