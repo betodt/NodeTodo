@@ -3,9 +3,8 @@ angular.module('NodeTodo', ['ngMaterial', 'ngResource', 'ngRoute', 'ngMessages']
 .config(['$mdThemingProvider', '$routeProvider', function($mdThemingProvider, $routeProvider) {
 	
 	$mdThemingProvider
-
 		.theme('default')
-			.primaryPalette('brown')
+			.primaryPalette('indigo')
 			.accentPalette('grey')
 			.warnPalette('amber')
 			.backgroundPalette('grey');
@@ -17,5 +16,4 @@ angular.module('NodeTodo', ['ngMaterial', 'ngResource', 'ngRoute', 'ngMessages']
 			controller: 'MainController',
 			controllerAs: 'vm'
 		});
-
 }]);

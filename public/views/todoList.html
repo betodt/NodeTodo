@@ -27,15 +27,21 @@
 				</md-input-container>
 				<md-button class="md-raised md-primary" type="submit">Submit</md-button>
 			</form>
+			<md-radio-group class="md-padding" layout="row" ng-model="q.isDone">
+				<div flex="5"></div>
+				<md-radio-button ng-value="">All</md-radio-button>
+				<md-radio-button ng-value="true">Done</md-radio-button>
+				<md-radio-button ng-value="!true">Not Done</md-radio-button>
+			</md-radio-group>
 		</md-toolbar>
 		<md-content layout="column" class="md-padding">
 		    <md-list flex>
-		    	<md-list-item class="md-1-line" ng-repeat="todo in vm.todos track by $index" ng-click="todo.isDone = !todo.isDone; vm.checkTask(todo);">
+		    	<md-list-item ng-class="{ complete: todo.isDone }" class="md-1-line" ng-repeat="todo in vm.todos | filter:q track by $index" ng-click="todo.isDone = !todo.isDone; vm.checkTask(todo);">
 		    		<md-checkbox ng-model="todo.isDone" ng-change="vm.checkTask(todo)"></md-checkbox>
 		    		<p>{{ todo.todo }}</p>
-		    		<md-button class="md-icon-button" ng-disabled="false" ng-click="vm.addAttachment()">
+		    		<!-- <md-button class="md-icon-button" ng-disabled="false" ng-click="vm.addAttachment()">
 		    			<md-icon>attachment</md-icon>
-		    		</md-button>
+		    		</md-button> -->
 		    	</md-list-item>
 		    </md-list>
 		</md-content>

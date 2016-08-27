@@ -9,8 +9,6 @@ angular.module('NodeTodo')
 
 		this.addTodo = function(todo) {
 
-			console.log(this.user);
-
 			if(todo) {
 
 				if(this.user._id) {
