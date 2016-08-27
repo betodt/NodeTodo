@@ -1,0 +1,35 @@
+<md-dialog aria-label="sign up">
+	<form ng-submit="dialog.signUp(dialog.signUpForm.$valid)" name="dialog.signUpForm">
+		<md-dialog-content class="md-padding" layout="column">
+			<h2>Sign Up</h2>
+			<md-input-container>
+				<label>Username</label>
+				<input type="text" required ng-model="dialog.uname" ng-model-options="{ debounce: 200 }" name="username" unique-username>
+				<div ng-messages="dialog.signUpForm.username.$error">
+					<div ng-message="required">Required.</div>
+					<div ng-message="unique">Username not available</div>
+				</div>
+			</md-input-container>
+			<md-input-container>
+				<label>Password</label>
+				<input type="password" required ng-model="dialog.pwd" name="password">
+				<div ng-messages="dialog.signUpForm.password.$error">
+					<div ng-message="required">Required.</div>
+				</div>
+			</md-input-container>
+			<md-input-container>
+				<label>Confirm Password</label>
+				<input type="password" required ng-model="dialog.confirmPwd" name="confirmPwd" compare-to="dialog.signUpForm.password">
+				<div ng-messages="dialog.signUpForm.confirmPwd.$error">
+					<div ng-message="required">Required.</div>
+					<div ng-message="compareTo">Passwords don't match.</div>
+				</div>
+			</md-input-container>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button ng-click="dialog.cancel()">Cancel</md-button>
+			<md-button type="submit">Sign Up</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

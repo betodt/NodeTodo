@@ -4,12 +4,23 @@
 			<div flex="5"></div>
 			<h2>To-Do List</h2>
 			<div flex></div>
-			<!-- <md-button class="md-icon-button">
-				<md-icon>more_vert</md-icon>
-			</md-button> -->
+			<md-menu md-position-mode="target-right target" md-offset="-10 10">
+				<md-button ng-click="vm.openMenu($mdOpenMenu, $event)" class="md-icon-button">
+					<md-icon md-menu-origin>more_vert</md-icon>
+				</md-button>
+				<md-menu-content width="2">
+					<md-menu-item>
+						<md-button ng-click="vm.showSignIn()">Sign In</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="vm.showSignUp()">Sign Up</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 		</md-toolbar>
 		<md-toolbar class="md-accent md-hue-1 md-padding" layout="column">
-			<form ng-submit="submit({ desc: newTodo }); newTodo = '';" layout="row" flex="5">
+			<md-subheader ng-if="!vm.user._id" class="md-warn">Your todos won't be saved unless you sign in.</md-subheader>
+			<form ng-submit="vm.addTodo(newTodo); newTodo = '';" layout="row" flex="5">
 				<md-input-container flex>
 					<label>Todo</label>
 					<input type="text" ng-model="newTodo"/>
@@ -25,10 +36,10 @@
 		</md-toolbar>
 		<md-content layout="column" class="md-padding">
 		    <md-list flex>
-		    	<md-list-item ng-class="{ complete: todo.isDone }" class="md-1-line" ng-repeat="todo in todos | filter:q track by $index" ng-click="todo.isDone = !todo.isDone; check({ todo: todo });">
-		    		<md-checkbox ng-model="todo.isDone" ng-change="check({ todo: todo })"></md-checkbox>
+		    	<md-list-item ng-class="{ complete: todo.isDone }" class="md-1-line" ng-repeat="todo in vm.todos | filter:q track by $index" ng-click="todo.isDone = !todo.isDone; vm.checkTask(todo);">
+		    		<md-checkbox ng-model="todo.isDone" ng-change="vm.checkTask(todo)"></md-checkbox>
 		    		<p>{{ todo.todo }}</p>
-		    		<!-- <md-button class="md-icon-button" ng-disabled="true" ng-click="attach()">
+		    		<!-- <md-button class="md-icon-button" ng-disabled="false" ng-click="vm.addAttachment()">
 		    			<md-icon>attachment</md-icon>
 		    		</md-button> -->
 		    	</md-list-item>

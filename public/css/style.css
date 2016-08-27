@@ -1,3 +1,6 @@
+/*
+	Todo List
+*/
 .complete {
 	text-decoration: line-through;
 	color: grey;
@@ -12,22 +15,30 @@ body div.container md-whiteframe md-toolbar md-radio-group {
 	margin-top: 10px; 
 }
 
-body div.container md-whiteframe {
+body div.container md-whiteframe, body div.container md-whiteframe md-toolbar div.md-subheader {
 	background-color: #fff; 
 }
 
 body div.container md-whiteframe md-content{
 	width: 100%;
-}
-
-body div.container md-whiteframe md-content{
-	background-color: white; 
+	background-color: #fff; 
 }
 
 button.md-raised.md-primary.md-button.md-ink-ripple {
 	color: rgba(255,255,255,0.87);
 }
 
+/*
+	dialogs
+ */
+
+md-dialog form md-dialog-content div div.md-subheader {
+	background-color: #fff;
+}
+
+/*
+	Media Queries
+*/
 @media (min-width: 600px) {
     body div.container md-whiteframe {
     	width: 500px;

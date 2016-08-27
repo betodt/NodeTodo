@@ -1,16 +1,34 @@
 angular.module('NodeTodo')
 
-.directive('todoList', function() {
+.directive('compareTo', function() {
 	return {
-		restrict: 'E',
-		templateUrl: '/assets/directives/todoList.html',
-		replace: true,
+		restrict: 'A',
+		require: 'ngModel',
 		scope: {
-			true: '=',
-			todos: '=',
-			submit: '&',
-			check: '&',
-			attach: '&'
+			otherModelValue: "=compareTo"
+		},
+		link: function(scope, element, attributes, ngModel) {
+
+			ngModel.$validators.compareTo = function(modelValue) {
+				if(scope.otherModelValue) {
+					return modelValue === scope.otherModelValue.$modelValue;
+				}
+			}
+
+			scope.$watch('otherModelValue', function() {
+				ngModel.$validate();
+			});
 		}
 	};
-});
+})
+
+.directive('uniqueUsername', ['isUsernameAvailable', function(isUsernameAvailable) {
+	return { 
+		restrict: 'A',
+		require: 'ngModel',
+		link: function(scope, element, attributes, ngModel) {
+			ngModel.$asyncValidators.unique = isUsernameAvailable;
+		}
+	};
+
+}]);
