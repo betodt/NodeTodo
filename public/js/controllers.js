@@ -81,7 +81,26 @@ angular.module('NodeTodo')
 		    	targetEvent: originatorEv
 		    
 		    }).then(function(user) {
+		    	// no previous user 
+		    	if(!self.user._id) {
+
+		    		// save any unsaved todos
+		    		self.todos.forEach(function(element, index) {
+		    			new Todo({
+		    				
+		    				userId: user._id,
+		    				todo: element.todo,
+		    				isDone: element.isDone,
+		    				hasAttachment: element.hasAttachment
+		    			
+		    			}).$save();
+		    		});
+
+		    	}
+
+		    	// update user
 		    	self.user = user;
+		    	// update todo list
 		    	self.todos = Todo.query({ userId: self.user._id });
 		    });
 

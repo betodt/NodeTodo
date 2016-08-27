@@ -6,7 +6,7 @@ angular.module('NodeTodo', ['ngMaterial', 'ngResource', 'ngRoute', 'ngMessages']
 		.theme('default')
 			.primaryPalette('indigo')
 			.accentPalette('grey')
-			.warnPalette('amber')
+			.warnPalette('red')
 			.backgroundPalette('grey');
 
 	$routeProvider
