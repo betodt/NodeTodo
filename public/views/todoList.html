@@ -19,6 +19,7 @@
 			</md-menu>
 		</md-toolbar>
 		<md-toolbar class="md-accent md-hue-1 md-padding" layout="column">
+			<md-subheader ng-if="!vm.user._id" class="md-warn">Your todos won't be saved unless you sign in.</md-subheader>
 			<form ng-submit="vm.addTodo(newTodo); newTodo = '';" layout="row" flex="5">
 				<md-input-container flex>
 					<label>Todo</label>

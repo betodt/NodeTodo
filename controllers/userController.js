@@ -1,67 +1,53 @@
 var Users = require('../models/userModel');
 var bodyParser = require('body-parser');
+var jwt = require('jwt-simple');
+var config = require('../config');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    
-    app.get('/api/users', function(req, res) {
 
-        Users.find(function(err, users) {
-            if (err) throw err;
+    app.get('/api/users/:username', function(req, res) {
+        Users.findOne({ username: req.params.username }, function(err, user) {
+            if(err) throw err;
             
-            res.send(users);
+            if(!user) {
+                res.status(404).end();
+            } else {
+                res.send(user);
+            }
         });
-        
     });
     
-    app.get('/api/users/:id', function(req, res) {
+    // signup
+    app.post('/api/signUp', function(req, res) {
 
-        Users.findById({ _id: req.params.id }, function(err, user) {
-            if (err) throw err;
+        if(!req.body.name || !req.body.password) {
+            res.json({ success: false, msg: 'Please pass name and password.'});
+        } else {
 
-            res.send(user);
-        });
+            var newUser = Users({
+                username: req.body.name,
+                password: req.body.password
+            });
+
+            newUser.save(function(err) {
+                if (err) { 
+                    console.log(err);
+                    return res.json({ success: false, msg: 'Username already exist.' });
+                }
+
+                res.json({ success: true, msg: 'Successful created new user.' });
+            });
+
+        }
 
     });
-    
-    app.post('/api/users', function(req, res) {
 
-        var newUser = Users({
-            username: req.body.username,
-            password: req.body.password
-        });
-
-        newUser.save(function(err) {
-            if (err) throw err;
-
-            res.send('Success');
-        });
-
-    });
-
-    app.put('/api/users/:id', function(req, res) {
-      if (req.params.id) {
-          Users.findByIdAndUpdate(req.params.id, { 
-            username: req.body.username, 
-            password: req.body.password 
-        }, function(err, todo) {
-              if (err) throw err;
-              
-              res.send('Success');
-          });
-      }
-  });
-    
-    app.delete('/api/users/:id', function(req, res) {
-
-        Users.findByIdAndRemove(req.params.id, function(err) {
-            if (err) throw err;
-
-            res.send('Success');
-        })
-        
+    // login
+    app.post('/api/authenticate', passport.authenticate('local', { session: false }), function(req, res) {
+        res.send(req.user);
     });
     
 }

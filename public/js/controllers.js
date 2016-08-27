@@ -1,131 +1,175 @@
 angular.module('NodeTodo')
 
-.controller('MainController', ['$scope', '$resource', '$mdDialog', 'Todo', function($scope, $resource, $mdDialog, Todo){
+.controller('MainController', ['$scope', '$resource', '$mdDialog', 'Todo', 
+	function($scope, $resource, $mdDialog, Todo){
 
-	this.user = { uname: '' };
-	
-	this.todos = Todo.query({ uname: this.user.uname });
+		this.user = {};
+		
+		this.todos = Todo.query({ uname: this.user.username });
 
-	console.log(this.todos);
+		this.addTodo = function(todo) {
 
-	this.addTodo = function(todo) {
+			console.log(this.user);
 
-		console.log(this.user.uname)
+			if(todo) {
 
-		if(todo) {
+				if(this.user._id) {
 
-			if(this.user.uname) {
+					var self = this;
 
-				var self = this;
-
-				new Todo({
+					new Todo({
+						
+						userId: this.user._id,
+						todo: todo,
+						isDone: false,
+						hasAttachment: false
 					
-					username: this.user.uname,
-					todo: todo,
-					isDone: false,
-					hasAttachment: false
-				
-				}).$save(function(newTodo) {
+					}).$save(function(newTodo) {
 
-					self.todos = Todo.query({ uname: self.user.uname });
-				
-				});
-
-			} else {
-				
-				this.todos.push({
+						self.todos = Todo.query({ userId: self.user._id });
 					
-					todo: todo,
-					isDone: false,
-					hasAttachment: false
+					});
+
+				} else {
+					
+					this.todos.push({
+						
+						todo: todo,
+						isDone: false,
+						hasAttachment: false
+					
+					});
 				
-				});
+				}
 			
 			}
 		
-		}
-	
-	};
+		};
 
-	this.checkTask = function(todo) {
+		this.checkTask = function(todo) {
 
-		if(this.user.uname) {
-			Todo.update({ id: todo._id }, todo);
-		}
+			if(this.user._id) {
+				Todo.update({ id: todo._id }, todo);
+			}
 
-	};
+		};
 
-	this.addAttachment = function() {
+		this.addAttachment = function() {
 
-		console.log('attached');
+			console.log('attached');
 
-	};
+		};
 
 
-	// need to track event for menu
-	// and popup targets
-	var originatorEv;
+		// need to track event for menu
+		// and popup targets
+		var originatorEv;
 
-	this.openMenu = function($mdOpenMenu, ev) {
-		console.log('open openMenu');
-		originatorEv = ev;
-		$mdOpenMenu(ev);
-	};
+		this.openMenu = function($mdOpenMenu, ev) {
+			originatorEv = ev;
+			$mdOpenMenu(ev);
+		};
 
-	// Sign in prompt
-	this.showSignIn = function() {
-		var self = this;
+		// Sign in prompt
+		this.showSignIn = function() {
+			
+			var self = this;
 
-	    $mdDialog.show({
-	    	
-	    	controller: 'SignInController',
-	    	controllerAs: 'dialog',
-	    	templateUrl: '/assets/templates/signIn.html',
-	    	targetEvent: originatorEv
-	    
-	    }).then(function(uname, pwd) {
-	    	self.user.uname = uname;
-	    	self.todos = Todo.query({ uname: self.user.uname });
-	    });
+		    $mdDialog.show({
+		    	
+		    	controller: 'SignInController',
+		    	controllerAs: 'dialog',
+		    	templateUrl: '/assets/templates/signIn.html',
+		    	targetEvent: originatorEv
+		    
+		    }).then(function(user) {
+		    	self.user = user;
+		    	self.todos = Todo.query({ userId: self.user._id });
+		    });
 
-	    originatorEv = null;
-	};
+		    originatorEv = null;
+		};
 
-	// Sign up prompt
-	this.showSignUp = function() {
-		var self = this;
+		// Sign up prompt
+		this.showSignUp = function() {
+			var self = this;
 
-	    $mdDialog.show({
-	    	
-	    	controller: 'SignUpController',
-	    	controllerAs: 'dialog',
-	    	templateUrl: '/assets/templates/signUp.html',
-	    	targetEvent: originatorEv
-	    
-	    }).then(function(uname, pwd) {
-	    	self.user.uname = uname;
-	    	self.todos = Todo.query({ uname: self.user.uname });
-	    });
+		    $mdDialog.show({
+		    	
+		    	controller: 'SignUpController',
+		    	controllerAs: 'dialog',
+		    	templateUrl: '/assets/templates/signUp.html',
+		    	targetEvent: originatorEv
+		    
+		    }).then(function(user) {
+		    	self.user = user;
+		    	self.todos = Todo.query({ userId: self.user._id });
+		    });
 
-	    originatorEv = null;
-	};
+		    originatorEv = null;
+		};
+	}
+])
 
-}])
+.controller('SignInController', ['$mdDialog', 'Auth',
+	function($mdDialog, Auth) {
 
-.controller('SignInController', ['$mdDialog', function($mdDialog) {
-	this.cancel = function() {
-		$mdDialog.cancel();
-	};
-	this.signIn = function() {
-		$mdDialog.hide(this.uname, this.pwd);
-	};
-}])
+		this.messages = { incorrectPassword: false };
 
-.controller('SignUpController', ['$mdDialog', function($mdDialog) {
-	this.cancel = function() {
-		$mdDialog.cancel();
-	};
-	this.signUp = function() {
-		$mdDialog.hide(this.uname, this.pwd);
-	};
-}]);
+		this.cancel = function() {
+			$mdDialog.cancel();
+		};
+		this.signIn = function(isValid) {	
+			var self = this;
+
+			if(isValid) {
+				Auth.login(this.uname, this.pwd, function(err, res) {
+					
+					if(err) {
+						self.messages.incorrectPassword = true;
+					}
+					
+					if(res.status === 200) {
+						$mdDialog.hide(res.data);
+					}
+				});
+			}
+		};
+	}
+])
+
+.controller('SignUpController', ['$mdDialog', 'Auth', 
+	function($mdDialog, Auth) {
+		this.cancel = function() {
+			$mdDialog.cancel();
+		};
+		this.signUp = function(isValid) {
+			var self = this;
+
+			if(isValid) {
+		    	Auth.signUp(this.uname, this.pwd, function(err, res) {
+		    		if(err) throw err;
+
+		    		if(res.data.success) {
+		    			// if successfully registered, log user in
+			    		Auth.login(self.uname, self.pwd, function(err, res) {
+			    			if(err) throw err;
+			    			
+			    			if(res.status === 200) {
+			    				// on successful login, close login prompt
+			    				$mdDialog.hide(res.data);
+			    			} else {
+			    				console.log(res.status);
+			    				this.message = "Incorrect email/password";
+			    			}
+			    		});
+
+		    		} else {
+		    			// output error message
+		    			this.message = res.data.msg;
+		    		}
+		    	});
+			}
+		};
+	}
+]);

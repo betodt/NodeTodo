@@ -1,4 +1,4 @@
-angular.module('NodeTodo', ['ngMaterial', 'ngResource', 'ngRoute'])
+angular.module('NodeTodo', ['ngMaterial', 'ngResource', 'ngRoute', 'ngMessages'])
 
 .config(['$mdThemingProvider', '$routeProvider', function($mdThemingProvider, $routeProvider) {
 	

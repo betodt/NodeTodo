@@ -6,7 +6,7 @@ body div.container {
 	background-color: #d9cbb3; 
 }
 
-body div.container md-whiteframe {
+body div.container md-whiteframe, body div.container md-whiteframe md-toolbar div.md-subheader {
 	background-color: #fff; 
 }
 
@@ -17,6 +17,14 @@ body div.container md-whiteframe md-content{
 
 button.md-raised.md-primary.md-button.md-ink-ripple {
 	color: rgba(255,255,255,0.87);
+}
+
+/*
+	dialogs
+ */
+
+md-dialog form md-dialog-content div div.md-subheader {
+	background-color: #fff;
 }
 
 /*
